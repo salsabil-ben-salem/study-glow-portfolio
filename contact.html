@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study & Glow — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✨ Study <span>&</span> Glow</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🌸 Bien-être</a></li>
+        <li><a href="planner.html">📚 Agenda</a></li>
+        <li><a href="contact.html" class="active">📬 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Contactez- <span>nous</span> 📬</h1>
+    <p>Des questions ? Des suggestions ? Ou juste un message d'encouragement ? Nous sommes là pour toi 💜</p>
+  </div>
+
+  <div class="container">
+    <div class="contact-grid" style="display:grid; grid-template-columns:1fr 1.5fr; gap:28px; align-items:start;">
+
+      <!-- INFO CARD -->
+      <div class="info-card">
+        <h3>Bienvenue 🌸</h3>
+        <p>Nous construisons Study & Glow avec passion pour chaque étudiante qui cherche un vrai équilibre entre les études et le bien-être.</p>
+        <div class="info-item">
+          <div class="info-icon">📧</div>
+          <div>
+            <div style="font-weight:700; margin-bottom:2px;">Email</div>
+            <div style="color:rgba(255,255,255,0.65); font-size:0.82rem;">studyandglow@gmail.com</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🏫</div>
+          <div>
+            <div style="font-weight:700; margin-bottom:2px;">Département</div>
+            <div style="color:rgba(255,255,255,0.65); font-size:0.82rem;">Sciences Informatiques — 2ème année</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">⏰</div>
+          <div>
+            <div style="font-weight:700; margin-bottom:2px;">Délai de réponse</div>
+            <div style="color:rgba(255,255,255,0.65); font-size:0.82rem;">Généralement sous 24 heures</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🌍</div>
+          <div>
+            <div style="font-weight:700; margin-bottom:2px;">Localisation</div>
+            <div style="color:rgba(255,255,255,0.65); font-size:0.82rem;">Tunisie TN</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULAIRE -->
+      <div class="card" id="formCard">
+        <div class="card-title">📩 Envoie ton message</div>
+
+        <div id="contactForm">
+          <div class="form-group">
+            <label for="fname">Nom complet <span style="color:#e04a6a;">*</span></label>
+            <input type="text" id="fname" placeholder="Ex : Salsabil Ben Salem" />
+            <div class="error-msg" id="err-fname">❗ Ce champ est obligatoire</div>
+          </div>
+          <div class="form-group">
+            <label for="femail">Adresse email <span style="color:#e04a6a;">*</span></label>
+            <input type="email" id="femail" placeholder="monemail@gmail.com" />
+            <div class="error-msg" id="err-femail">❗ Entre une adresse email valide</div>
+          </div>
+          <div class="form-group">
+            <label for="fann">Année universitaire <span style="color:#e04a6a;">*</span></label>
+            <select id="fann">
+              <option value="">-- Choisis ton année --</option>
+              <option value="L1">L1 — 1ère année</option>
+              <option value="L2">L2 — 2ème année</option>
+              <option value="L3">L3 — 3ème année</option>
+              <option value="M1">M1 — Master 1</option>
+              <option value="M2">M2 — Master 2</option>
+            </select>
+            <div class="error-msg" id="err-fann">❗ Veuillez choisir ton année</div>
+          </div>
+          <div class="form-group">
+            <label for="fsujet">Sujet du message <span style="color:#e04a6a;">*</span></label>
+            <select id="fsujet">
+              <option value="">-- Choisis un sujet --</option>
+              <option value="Encouragement">💜 Message d'encouragement</option>
+              <option value="Suggestion">💡 Suggestion de fonctionnalité</option>
+              <option value="Question">❓ Question générale</option>
+            </select>
+            <div class="error-msg" id="err-fsujet">❗ Veuillez choisir un sujet</div>
+          </div>
+          <div class="form-group">
+            <label for="fmessage">Ton message <span style="color:#e04a6a;">*</span></label>
+            <textarea class="notes-area" id="fmessage" rows="5" placeholder="Écris ton message ici... (20 caractères minimum)"></textarea>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+              <div class="error-msg" id="err-fmessage" style="display:inline; position:relative;">❗ Le message doit contenir au moins 20 caractères</div>
+              <span id="charCount" style="font-size:0.78rem; color:#8a7095;">0 caractère(s)</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Note du site</label>
+            <div id="starRating" style="display:flex; gap:8px; margin-top:6px;">
+              <span class="star" data-val="1" onclick="setRating(1)" style="font-size:1.8rem; cursor:pointer; transition:transform 0.15s;" title="Faible">⭐</span>
+              <span class="star" data-val="2" onclick="setRating(2)" style="font-size:1.8rem; cursor:pointer; transition:transform 0.15s;" title="Passable">⭐</span>
+              <span class="star" data-val="3" onclick="setRating(3)" style="font-size:1.8rem; cursor:pointer; transition:transform 0.15s;" title="Bien">⭐</span>
+              <span class="star" data-val="4" onclick="setRating(4)" style="font-size:1.8rem; cursor:pointer; transition:transform 0.15s;" title="Très bien">⭐</span>
+              <span class="star" data-val="5" onclick="setRating(5)" style="font-size:1.8rem; cursor:pointer; transition:transform 0.15s;" title="Excellent">⭐</span>
+            </div>
+            <input type="hidden" id="frating" value="0" />
+          </div>
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+              <input type="checkbox" id="fconsent" />
+              <span style="font-size:0.85rem; color:#6b3fa0;">J'accepte que mes données soient utilisées uniquement pour répondre à mon message 💜</span>
+            </label>
+            <div class="error-msg" id="err-fconsent">❗ Tu dois accepter avant d'envoyer</div>
+          </div>
+          <button class="btn btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="submitForm()">
+            📩 Envoyer le message
+          </button>
+        </div>
+
+        <!-- Succès -->
+        <div class="success-box" id="successBox" style="display:none;">
+          <div class="big-emoji">🎉</div>
+          <h3>Message envoyé avec succès !</h3>
+          <p>Merci de nous avoir contactés 💜 Nous te répondrons dans les plus brefs délais.</p>
+          <button class="btn btn-secondary" style="margin-top:16px;" onclick="resetForm()">📩 Envoyer un autre message</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tableau messages -->
+    <div id="messagesSection" style="margin-top:32px; display:none;">
+      <h2 class="section-title" style="margin-bottom:16px;">📋 Messages envoyés</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Nom</th><th>Sujet</th><th>Note</th><th>Date</th></tr>
+          </thead>
+          <tbody id="messagesTable"></tbody>
+        </table>
+        <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+          <span id="msgCount" style="font-size:0.85rem; color:#8a7095;"></span>
+          <button class="btn btn-outline" style="font-size:0.8rem;" onclick="clearMessages()">🗑️ Effacer l'historique</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Fait avec 💜 pour chaque étudiante universitaire ✨ <span>Study & Glow</span> — 2026</p>
+  </footer>
+
+  <div class="notif" id="notif"></div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    function showNotif(msg) {
+      $('notif').textContent=msg; $('notif').style.display='block';
+      clearTimeout(window._nt);
+      window._nt=setTimeout(()=>$('notif').style.display='none',3500);
+    }
+
+    // Compteur caractères
+    document.addEventListener('DOMContentLoaded', () => {
+      $('fmessage').addEventListener('input', function() {
+        $('charCount').textContent = this.value.length + ' caractère(s)';
+      });
+    });
+
+    // ===== ÉTOILES =====
+    let currentRating = 0;
+    function setRating(val) {
+      currentRating = val; $('frating').value = val;
+      document.querySelectorAll('.star').forEach(s => {
+        const v = parseInt(s.dataset.val);
+        s.style.filter    = v <= val ? 'none' : 'grayscale(80%)';
+        s.style.transform = v === val ? 'scale(1.3)' : 'scale(1)';
+      });
+    }
+
+    // ===== VALIDATION =====
+    function showError(id, show) {
+      const el = $('err-' + id); if(el) el.style.display = show ? 'block' : 'none';
+      const inp = $('f' + id) || $(id); if(inp) inp.style.borderColor = show ? '#e04a6a' : '';
+    }
+
+    function submitForm() {
+      let valid = true;
+      const fname = $('fname').value.trim();
+      if (!fname) { showError('fname',true); valid=false; } else showError('fname',false);
+      const femail = $('femail').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(femail)) { showError('femail',true); valid=false; } else showError('femail',false);
+      const fann = $('fann').value;
+      if (!fann) { showError('fann',true); valid=false; } else showError('fann',false);
+      const fsujet = $('fsujet').value;
+      if (!fsujet) { showError('fsujet',true); valid=false; } else showError('fsujet',false);
+      const fmessage = $('fmessage').value.trim();
+      if (fmessage.length < 20) { showError('fmessage',true); valid=false; } else showError('fmessage',false);
+      const fconsent = $('fconsent').checked;
+      if (!fconsent) { showError('fconsent',true); valid=false; } else showError('fconsent',false);
+      if (!valid) { showNotif("❗ Veuillez corriger les erreurs avant d'envoyer"); return; }
+
+      const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+      messages.push({ nom:fname, email:femail, annee:fann, sujet:fsujet,
+        message:fmessage, rating:currentRating, date:new Date().toLocaleDateString('fr-FR') });
+      localStorage.setItem('contactMessages', JSON.stringify(messages));
+      $('contactForm').style.display = 'none';
+      $('successBox').style.display = 'block';
+      renderMessages();
+    }
+
+    function resetForm() {
+      $('contactForm').style.display='block'; $('successBox').style.display='none';
+      ['fname','femail','fmessage'].forEach(id=>$(id).value='');
+      ['fann','fsujet'].forEach(id=>$(id).value='');
+      $('fconsent').checked=false; $('charCount').textContent='0 caractère(s)';
+      setRating(0); document.querySelectorAll('.error-msg').forEach(e=>e.style.display='none');
+    }
+
+    function renderMessages() {
+      const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+      const sec = $('messagesSection');
+      if (!messages.length) { sec.style.display='none'; return; }
+      sec.style.display='block';
+      $('messagesTable').innerHTML = messages.map((m,i) => `
+        <tr>
+          <td>${i+1}</td>
+          <td>${m.nom} <span class="chip chip-blue" style="font-size:0.7rem;">${m.annee}</span></td>
+          <td><span class="chip chip-pink">${m.sujet}</span></td>
+          <td>${m.rating>0?'⭐'.repeat(m.rating):'—'}</td>
+          <td>${m.date}</td>
+        </tr>`).join('');
+      $('msgCount').textContent = messages.length + ' message(s) envoyé(s)';
+    }
+
+    function clearMessages() {
+      localStorage.removeItem('contactMessages');
+      $('messagesSection').style.display='none';
+    }
+
+    renderMessages();
+  </script>
+</body>
+</html>

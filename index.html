@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study & Glow — Bien-être</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✨ Study <span>&</span> Glow</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">🌸 Bien-être</a></li>
+        <li><a href="planner.html">📚 Agenda</a></li>
+        <li><a href="contact.html">📬 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Plateforme de <span>soins personnels</span> 🌸</h1>
+    <p>Prendre soin de toi n'est pas un luxe — c'est la base de ta réussite aux examens et au-delà</p>
+  </div>
+
+  <div class="container">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+      <h2 class="section-title">💡 Conseils rapides</h2>
+      <button class="btn btn-outline" id="toggleTipsBtn" onclick="toggleTips()"
+        style="font-size:0.82rem; padding:6px 16px;">🙈 Masquer</button>
+    </div>
+
+    <div id="tipsSection">
+      <div class="tips-grid" id="tipsGrid"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Fait avec 💜 pour chaque étudiante universitaire ✨ <span>Study & Glow</span> — 2026</p>
+  </footer>
+
+  <div class="notif" id="notif"></div>
+
+  <script>
+    const allTips = [
+      { cls:'cat-skin',  icon:'🧴', title:'Hydrate ta peau',              text:'Utilise une crème légère avant de dormir et un SPF le matin.' },
+      { cls:'cat-sleep', icon:'😴', title:'7-8 heures de sommeil',        text:'Ton cerveau traite les infos pendant le sommeil — il fait partie de la révision !' },
+      { cls:'cat-food',  icon:'🥗', title:'Bois de l\'eau régulièrement', text:'La déshydratation réduit la concentration de 20%. Garde une bouteille à portée.' },
+      { cls:'cat-sport', icon:'🧘‍♀️', title:'Étirements légers',            text:'5 minutes par heure améliorent la circulation et soulagent les tensions.' },
+      { cls:'cat-mind',  icon:'🧠', title:'Arrête de te comparer',        text:'Compare-toi uniquement à toi-même — la version d\'il y a une semaine.' },
+      { cls:'cat-skin',  icon:'💧', title:'Masque hydratant nocturne',    text:'Un masque hydratant léger une fois par semaine. Repos peau = repos esprit.' },
+      { cls:'cat-sleep', icon:'🌙', title:'Routine avant le sommeil',     text:'Éloigne ton téléphone 30 min avant de dormir et bois une tisane chaude.' },
+      { cls:'cat-food',  icon:'🍫', title:'Snacks intelligents',          text:'Noix, banane et chocolat noir sont le carburant idéal pour le cerveau.' },
+      { cls:'cat-sport', icon:'🚶‍♀️', title:'Marche 15 minutes',            text:'La marche libère des endorphines et améliore l\'humeur après les révisions.' },
+      { cls:'cat-mind',  icon:'🌬️', title:'Respiration 4-7-8',            text:'Inspire 4s, retiens 7s, expire 8s. Calme le système nerveux avant un examen.' },
+    ];
+
+    const catColors = {
+      'cat-skin' :'#993556','cat-sleep':'#534AB7',
+      'cat-food' :'#3B6D11','cat-sport':'#0F6E56','cat-mind' :'#185FA5'
+    };
+    const catBg = {
+      'cat-skin' :'#FBEAF0','cat-sleep':'#EEEDFE',
+      'cat-food' :'#EAF3DE','cat-sport':'#E1F5EE','cat-mind' :'#E6F1FB'
+    };
+    const catIcon = {
+      'cat-skin' :'#F4C0D1','cat-sleep':'#CECBF6',
+      'cat-food' :'#C0DD97','cat-sport':'#9FE1CB','cat-mind' :'#B5D4F4'
+    };
+
+    function renderTips() {
+      document.getElementById('tipsGrid').innerHTML = allTips.map(t => `
+        <div class="tip-card" style="border-top:5px solid ${catColors[t.cls]};">
+          <div class="tip-body">
+            <div class="tip-icon-wrap" style="background:${catIcon[t.cls]};">${t.icon}</div>
+            <p class="tip-title" style="color:${catColors[t.cls]};">${t.title}</p>
+            <p class="tip-text">${t.text}</p>
+            <span style="display:inline-block; margin-top:10px; padding:2px 10px; border-radius:20px;
+                         font-size:11px; font-weight:700;
+                         background:${catBg[t.cls]}; color:${catColors[t.cls]};">
+              ${t.cls.replace('cat-','')}
+            </span>
+          </div>
+        </div>`).join('');
+    }
+
+    let tipsVisible = true;
+    function toggleTips() {
+      tipsVisible = !tipsVisible;
+      document.getElementById('tipsSection').style.display = tipsVisible ? 'block' : 'none';
+      document.getElementById('toggleTipsBtn').textContent = tipsVisible ? '🙈 Masquer' : '👁️ Afficher';
+    }
+
+    renderTips();
+  </script>
+</body>
+</html>

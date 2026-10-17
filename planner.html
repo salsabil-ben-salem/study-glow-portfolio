@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study & Glow — Agenda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✨ Study <span>&</span> Glow</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🌸 Bien-être</a></li>
+        <li><a href="planner.html" class="active">📚 Agenda</a></li>
+        <li><a href="contact.html">📬 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Agenda de l'étudiante <span>Universitaire</span> 📚</h1>
+    <p>Tous tes outils d'étude en un seul endroit — organisé, intelligent et beau</p>
+  </div>
+
+  <div class="container">
+    <div class="tabs-header">
+      <button class="tab-btn active" onclick="switchTab('moyenne')">📊 Moyenne Tunisienne</button>
+      <button class="tab-btn" onclick="switchTab('timer')">⏱ Minuteur d'Étude</button>
+      <button class="tab-btn" onclick="switchTab('tasks')">✅ Gestion des Tâches</button>
+    </div>
+
+    <!-- ===== TAB: MOYENNE ===== -->
+    <div class="tab-panel active" id="tab-moyenne">
+      <div class="card">
+        <div class="card-title">📊 Calculateur de Moyenne — Système Tunisien</div>
+        <p style="font-size:0.85rem; color:#8a7095; margin-bottom:24px;">
+          Saisis tes notes (DS, TP optionnel, Examen) pour chaque matière. La moyenne est calculée sur 20.
+        </p>
+        <div id="moyenneContainer"></div>
+        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="calculerMoyenne()">🧮 Calculer la moyenne</button>
+          <button class="btn btn-secondary" onclick="resetMoyenne()">🔄 Réinitialiser</button>
+        </div>
+        <div id="moyenneResult" style="display:none; margin-top:24px;"></div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: MINUTEUR ===== -->
+    <div class="tab-panel" id="tab-timer">
+      <div class="card">
+        <div class="card-title">⏱ Minuteur d'Étude</div>
+        <div class="timer-display">
+          <div class="timer-ring-wrap">
+            <svg class="timer-svg" width="180" height="180" viewBox="0 0 180 180">
+              <circle class="timer-circle-bg" cx="90" cy="90" r="78"/>
+              <circle class="timer-circle-prog" id="timerCircle" cx="90" cy="90" r="78"
+                stroke-dasharray="490" stroke-dashoffset="0"/>
+            </svg>
+            <div class="timer-text">
+              <div class="timer-count" id="timerDisplay">25:00</div>
+              <div class="timer-mode" id="timerMode">FOCUS 🎯</div>
+            </div>
+          </div>
+          <div class="timer-btns">
+            <button class="btn btn-primary" id="startBtn" onclick="startTimer()">▶ Commencer</button>
+            <button class="btn btn-outline" onclick="pauseTimer()">⏸ Pause</button>
+            <button class="btn btn-secondary" onclick="resetTimer()">🔄 Reset</button>
+          </div>
+          <div style="display:flex; gap:12px; justify-content:center; margin-top:16px;">
+            <button class="btn btn-outline" style="font-size:0.8rem; padding:7px 14px;" onclick="setMode('focus')">🎯 25 min</button>
+            <button class="btn btn-outline" style="font-size:0.8rem; padding:7px 14px;" onclick="setMode('short')">☕ 5 min</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: TÂCHES ===== -->
+    <div class="tab-panel" id="tab-tasks">
+      <div class="card">
+        <div class="card-title">✅ Gestion des Tâches</div>
+        <div style="background:#fdf4fa; border-radius:14px; padding:20px; margin-bottom:20px;">
+          <div class="grid-2" style="gap:14px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="taskName">Nom de la tâche / Examen</label>
+              <input type="text" id="taskName" placeholder="Ex: Examen Réseaux" />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="taskDate">Date d'échéance</label>
+              <input type="date" id="taskDate" />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="taskCat">Catégorie</label>
+              <select id="taskCat">
+                <option value="Examen">📝 Examen</option>
+                <option value="Projet">💼 Projet</option>
+                <option value="Rapport">📄 Rapport</option>
+                <option value="Révision">📚 Révision</option>
+                <option value="Autre">🔖 Autre</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="taskPriority">Priorité</label>
+              <select id="taskPriority">
+                <option value="Haute">🔴 Haute</option>
+                <option value="Moyenne">🟡 Moyenne</option>
+                <option value="Basse">🟢 Basse</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:14px; width:100%;" onclick="addTask()">➕ Ajouter la tâche</button>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+          <button class="btn btn-outline task-filter" data-f="all"     onclick="filterTasks('all')">Tout</button>
+          <button class="btn btn-outline task-filter" data-f="pending" onclick="filterTasks('pending')">⏳ En cours</button>
+          <button class="btn btn-outline task-filter" data-f="done"    onclick="filterTasks('done')">✅ Terminé</button>
+        </div>
+        <div id="tasksContainer"></div>
+        <div style="margin-top:14px; padding-top:14px; border-top:1px solid #f0e0f0;
+                    display:flex; justify-content:space-between; align-items:center;">
+          <span id="taskStats" style="font-size:0.85rem; color:#8a7095;"></span>
+          <button class="btn btn-outline" style="font-size:0.8rem;" onclick="clearDoneTasks()">🗑️ Supprimer terminés</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Fait avec 💜 pour chaque étudiante ✨ <span>Study & Glow</span> — 2026</p>
+  </footer>
+
+  <div class="notif" id="notif"></div>
+
+  <script>
+    // ===== UTILS =====
+    const $ = id => document.getElementById(id);
+    function showNotif(msg) {
+      $('notif').textContent = msg; $('notif').style.display = 'block';
+      clearTimeout(window._nt);
+      window._nt = setTimeout(() => $('notif').style.display = 'none', 3500);
+    }
+
+    // ===== TABS =====
+    function switchTab(name) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      $('tab-' + name).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // ===== MODULES =====
+    const modules = [
+      { nom: 'Bases de données et Réseaux', matieres: [
+        { nom: 'Ingénierie des Bases de Données', coef:1.5, hasTP:true },
+        { nom: 'Services des Réseaux',            coef:1,   hasTP:true },
+      ]},
+      { nom: 'CPOO', matieres: [
+        { nom: "Conception des Systèmes d'Information", coef:1.5, hasTP:false },
+        { nom: 'Programmation Java',                    coef:2,   hasTP:true  },
+      ]},
+      { nom: 'Probabilité', matieres: [
+        { nom: 'Probabilité et Statistique', coef:2, hasTP:false },
+      ]},
+      { nom: 'Automates et Optimisation', matieres: [
+        { nom: 'Théorie des Langages et des Automates', coef:1, hasTP:false },
+        { nom: 'Graphes et Optimisation',               coef:1, hasTP:false },
+      ]},
+      { nom: "Langue et Culture d'Entreprise", matieres: [
+        { nom: 'Anglais 3',            coef:1, hasTP:false },
+        { nom: "Gestion d'Entreprise", coef:1, hasTP:false },
+      ]},
+      { nom: 'UEO3', matieres: [
+        { nom: 'JEE',                                                    coef:1.5, hasTP:true },
+        { nom: 'Développement Mobile et Préparation à la Certification', coef:1.5, hasTP:true },
+      ]},
+    ];
+    const TOTAL_COEF = 15;
+
+    const getVal = id => { const v = parseFloat($(id)?.value); return isNaN(v) ? null : v; };
+
+    function moyMatiere(mi, mati) {
+      const mat = modules[mi].matieres[mati];
+      const ds = getVal(`ds_${mi}_${mati}`), ex = getVal(`ex_${mi}_${mati}`);
+      const tp = mat.hasTP ? getVal(`tp_${mi}_${mati}`) : null;
+      if (ds === null || ex === null) return null;
+      return Math.min(20, Math.max(0,
+        mat.hasTP && tp !== null ? ds*0.2 + tp*0.1 + ex*0.7 : ds*0.3 + ex*0.7
+      ));
+    }
+
+    function renderMoyenne() {
+      $('moyenneContainer').innerHTML = modules.map((mod, mi) => {
+        const hasTP = mod.matieres.some(m => m.hasTP);
+        const cols  = `2fr 0.8fr ${hasTP ? '0.8fr ' : ''}0.8fr 0.7fr`;
+        const inp   = (type, mi, mati) => `
+          <input type="number" id="${type}_${mi}_${mati}" placeholder="—"
+            min="0" max="20" step="0.25" oninput="calcMatiere(${mi},${mati})"
+            style="text-align:center;padding:7px;border:1.5px solid #e8daf0;border-radius:8px;
+                   width:100%;background:#fdf8fc;font-size:0.9rem;outline:none;
+                   font-family:var(--police-corps);" />`;
+        return `
+          <div style="margin-bottom:24px;">
+            <div style="background:linear-gradient(135deg,var(--couleur-sombre),#4a2d5e);
+                        color:white;padding:10px 18px;border-radius:10px 10px 0 0;
+                        font-family:var(--police);font-size:1rem;">📚 ${mod.nom}</div>
+            <div style="border:1.5px solid #e8daf0;border-top:none;border-radius:0 0 10px 10px;">
+              <div style="display:grid;grid-template-columns:${cols};background:#faf0fc;
+                          padding:8px 16px;font-size:0.78rem;font-weight:700;color:#8a7095;gap:8px;">
+                <span>Matière</span><span style="text-align:center">DS</span>
+                ${hasTP ? '<span style="text-align:center">TP</span>' : ''}
+                <span style="text-align:center">Examen</span>
+                <span style="text-align:center">Moy.</span>
+              </div>
+              ${mod.matieres.map((mat, mati) => `
+                <div style="display:grid;grid-template-columns:${cols};align-items:center;
+                            padding:10px 16px;gap:8px;border-top:1px solid #f0e5f8;background:white;">
+                  <div>
+                    <div style="font-weight:700;font-size:0.88rem;color:var(--couleur-sombre);">${mat.nom}</div>
+                    <div style="font-size:0.75rem;color:#a08ab0;">Coef. ${mat.coef}</div>
+                  </div>
+                  ${inp('ds', mi, mati)}
+                  ${hasTP ? (mat.hasTP ? inp('tp', mi, mati) : '<div style="text-align:center;color:#ccc;">—</div>') : ''}
+                  ${inp('ex', mi, mati)}
+                  <div id="moy_${mi}_${mati}" style="text-align:center;font-weight:700;
+                       color:#a08ab0;background:#faf0fc;border-radius:8px;padding:7px 4px;">—</div>
+                </div>`).join('')}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function calcMatiere(mi, mati) {
+      const el = $(`moy_${mi}_${mati}`), moy = moyMatiere(mi, mati);
+      el.textContent = moy !== null ? moy.toFixed(2) : '—';
+      el.style.color = moy === null ? '#a08ab0' : moy >= 10 ? '#2d8a50' : '#e04a6a';
+    }
+
+    function calculerMoyenne() {
+      let somme = 0, manquant = false;
+      modules.forEach((mod, mi) => mod.matieres.forEach((mat, mati) => {
+        const moy = moyMatiere(mi, mati);
+        if (moy === null) { manquant = true; return; }
+        somme += moy * mat.coef;
+      }));
+      const moyenne = somme / TOTAL_COEF;
+      const mention = moyenne>=16?'🌟 Très bien':moyenne>=14?'👍 Bien':moyenne>=12?'✊ Assez bien':moyenne>=10?'📘 Passable':'💪 Courage !';
+      const miniCards = modules.map((mod, mi) => {
+        let s=0, c=0;
+        mod.matieres.forEach((mat, mati) => {
+          const moy = moyMatiere(mi, mati);
+          if (moy !== null) { s += moy * mat.coef; c += mat.coef; }
+        });
+        const v = c>0?(s/c).toFixed(2):'—', col = c>0?(s/c>=10?'#9fe1cb':'#f4a261'):'rgba(255,255,255,0.4)';
+        return `<div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:12px 8px;text-align:center;">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.55);margin-bottom:4px;line-height:1.4;">${mod.nom}</div>
+          <div style="font-size:1.3rem;font-weight:700;color:${col};">${v}</div></div>`;
+      }).join('');
+      $('moyenneResult').style.display = 'block';
+      $('moyenneResult').innerHTML = `
+        <div style="background:linear-gradient(135deg,var(--couleur-sombre),#4a2d5e);
+                    color:white;border-radius:var(--rayon);padding:28px;text-align:center;">
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-bottom:8px;
+                      text-transform:uppercase;letter-spacing:1px;">
+            Moyenne Générale ${manquant?'(partielle)':''}
+          </div>
+          <div style="font-family:var(--police);font-size:4rem;font-weight:700;
+                      color:var(--couleur-accent);line-height:1;margin-bottom:10px;">
+            ${moyenne.toFixed(2)}<span style="font-size:1.5rem;color:rgba(255,255,255,0.45);"> /20</span>
+          </div>
+          <div style="font-size:1.1rem;font-weight:700;margin-bottom:8px;">${mention}</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.5);">
+            ${TOTAL_COEF} coefficients${manquant?' — notes manquantes':''}
+          </div>
+          <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;">
+            ${miniCards}
+          </div>
+        </div>`;
+      $('moyenneResult').scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    function resetMoyenne() {
+      modules.forEach((mod, mi) => mod.matieres.forEach((mat, mati) => {
+        ['ds','ex'].forEach(t => { const el=$(`${t}_${mi}_${mati}`); if(el) el.value=''; });
+        if (mat.hasTP) { const tp=$(`tp_${mi}_${mati}`); if(tp) tp.value=''; }
+        const moy=$(`moy_${mi}_${mati}`); if(moy){moy.textContent='—';moy.style.color='#a08ab0';}
+      }));
+      $('moyenneResult').style.display = 'none';
+      showNotif('🔄 Notes réinitialisées !');
+    }
+
+    // ===== MINUTEUR =====
+    const MODES = { focus:{min:25,label:'FOCUS 🎯'}, short:{min:5,label:'PAUSE ☕'} };
+    let curMode='focus', leftSecs=25*60, totalSecs=25*60, isRunning=false, timerInt=null;
+
+    function setMode(m) { curMode=m; resetTimer(); }
+    function resetTimer() {
+      clearInterval(timerInt); isRunning=false;
+      totalSecs=MODES[curMode].min*60; leftSecs=totalSecs;
+      updateTimerDisplay(); updateCircle();
+      $('timerMode').textContent=MODES[curMode].label;
+      $('startBtn').textContent='▶ Commencer';
+    }
+    function startTimer() {
+      if (isRunning) return; isRunning=true;
+      $('startBtn').textContent='⏳ En cours...';
+      timerInt=setInterval(()=>{
+        leftSecs--; updateTimerDisplay(); updateCircle();
+        if(leftSecs<=0){clearInterval(timerInt);isRunning=false;showNotif('🎉 Session terminée !');resetTimer();}
+      },1000);
+    }
+    function pauseTimer() { clearInterval(timerInt); isRunning=false; $('startBtn').textContent='▶ Reprendre'; }
+    function updateTimerDisplay() {
+      $('timerDisplay').textContent=`${String(Math.floor(leftSecs/60)).padStart(2,'0')}:${String(leftSecs%60).padStart(2,'0')}`;
+    }
+    function updateCircle() {
+      const circ=2*Math.PI*78, offset=circ*(1-leftSecs/totalSecs);
+      $('timerCircle').style.strokeDasharray=circ;
+      $('timerCircle').style.strokeDashoffset=offset;
+    }
+
+    // ===== TÂCHES =====
+    let tasks=JSON.parse(localStorage.getItem('tasks'))||[], activeTaskFilter='all';
+    function saveTasks() { localStorage.setItem('tasks',JSON.stringify(tasks)); }
+
+    function addTask() {
+      const nom=$('taskName').value.trim(), date=$('taskDate').value;
+      const cat=$('taskCat').value, prio=$('taskPriority').value;
+      if(!nom||!date){showNotif('❗ Remplissez tous les champs');return;}
+      tasks.push({id:Date.now(),nom,date,cat,prio,done:false});
+      saveTasks(); renderTasks();
+      $('taskName').value=''; $('taskDate').value='';
+      showNotif('✅ Tâche ajoutée !');
+    }
+
+    function renderTasks() {
+      const c=$('tasksContainer');
+      const filtered=tasks
+        .filter(t=>activeTaskFilter==='all'||(activeTaskFilter==='pending'&&!t.done)||(activeTaskFilter==='done'&&t.done))
+        .sort((a,b)=>new Date(a.date)-new Date(b.date));
+      c.innerHTML=filtered.length?'':'<p style="text-align:center;padding:20px;color:#8a7095;">Aucune tâche ✨</p>';
+      filtered.forEach(t=>{
+        const div=document.createElement('div');
+        div.className=`task-item ${t.done?'done-task':''}`;
+        div.innerHTML=`
+          <div class="task-check ${t.done?'checked':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div>
+          <div class="task-info">
+            <div class="task-name">${t.nom}</div>
+            <div class="task-meta">📅 ${t.date} &nbsp;|&nbsp;
+              <span class="chip chip-pink" style="font-size:0.72rem;">${t.cat}</span>
+              &nbsp;|&nbsp; ${t.prio==='Haute'?'🔴':t.prio==='Moyenne'?'🟡':'🟢'} ${t.prio}
+            </div>
+          </div>
+          <button onclick="deleteTask(${t.id})"
+            style="background:none;border:none;cursor:pointer;color:#c0a0c0;font-size:1rem;padding:4px;">✕</button>`;
+        c.appendChild(div);
+      });
+      $('taskStats').textContent=`${tasks.filter(t=>t.done).length} / ${tasks.length} tâche(s) terminée(s)`;
+    }
+
+    function toggleTask(id){const t=tasks.find(x=>x.id===id);if(t){t.done=!t.done;saveTasks();renderTasks();if(t.done)showNotif('🎉 Tâche terminée ✅');}}
+    function deleteTask(id){tasks=tasks.filter(x=>x.id!==id);saveTasks();renderTasks();}
+    function clearDoneTasks(){tasks=tasks.filter(t=>!t.done);saveTasks();renderTasks();showNotif('🗑️ Terminées supprimées');}
+    function filterTasks(f){activeTaskFilter=f;renderTasks();}
+
+    // ===== INIT =====
+    renderMoyenne(); renderTasks(); updateTimerDisplay(); updateCircle();
+  </script>
+</body>
+</html>
